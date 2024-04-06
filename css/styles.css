@@ -1,0 +1,95 @@
+
+/* Страница авторизации */
+
+#auth-page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth_container {
+    /* border: 1px solid red; */
+    max-width: 830px;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.auth-textblock {
+    display: flex;
+    flex-direction: column;
+    /* margin-right: 28px; */
+}
+
+.auth-textblock h2 {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.auth-textblock p {
+    font-size: 22px;
+}
+
+.auth-textblock span {
+    font-size: 22px;
+    margin-bottom: 0px;
+    margin-top: auto;
+}
+
+.auth_container form {
+    display: flex;
+    flex-direction: column;
+    max-width: 428px;
+    width: 100%;
+    height: fit-content;
+    padding: 28px 98px 36px 25px;
+    background-color: #F6F6F6;
+    border-radius: 15px;
+    gap: 19px;
+}
+
+.auth_container form input {
+    width: 100%;
+    height: 47px;
+    padding-left: 15px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+
+.auth_container form input::placeholder {
+    color: #626262;
+}
+
+.auth_container form button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    background: #0378A6;
+    height: 47px;
+    width: 305px;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.auth_container form button:hover {
+    background: #186381;
+}
+
+.auth_container form p {
+    font-size: 12px;
+}
+
