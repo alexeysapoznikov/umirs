@@ -2,6 +2,9 @@
 
 * {
     font-family: 'Manrope', sans-serif;
+    color: white;
+    text-decoration: none;
+    transition: 0.2s;
 }
 
 html {
