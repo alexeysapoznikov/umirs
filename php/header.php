@@ -10,7 +10,7 @@
     <title>Umirs - сервис тестирования</title>
 </head>
 <body>
-    <? if ($hideHeader != true): ?>
+    <?php if ($hideHeader != true): ?>
         <header>
         <div class="header-top-block">
             <div class="logo-box">
@@ -64,4 +64,4 @@
             </div>
         </div>
     </header>
-    <? endif;?>
+    <?php endif;?>

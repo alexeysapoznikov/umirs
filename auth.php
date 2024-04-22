@@ -10,7 +10,7 @@ include_once './php/header.php';
                 <p>Для продолжения работы на сайте вам необходимо войти в аккаунт.</p>
                 <span>Нет аккаунта?<a href="vk.com" class="goToReg"> Регистрация.</a></span>
             </div>
-            <form action="./php/scripts/auth.php" method="post">
+            <form action="./php/scripts/auth.php" method="post" enctype="multipart/form-data">
                 <input type="email" name="email" id="email" placeholder="Почта">
                 <input type="password" name="password" id="password" placeholder="Пароль">
                 <input type="hidden" name="auth" value="login">
@@ -26,8 +26,8 @@ include_once './php/header.php';
                 <p>Для продолжения работы на сайте вам необходимо зарегистрировать аккаунт.</p>
                 <span>Есть аккаунт?<a href="" class="goToLogin"> Войти.</a></span>
             </div>
-            <form action="./php/scripts/auth.php" method="post">
-                <input type="text" name="name" id="" placeholder="Имя">
+            <form action="./php/scripts/auth.php" method="post" enctype="multipart/form-data">
+                <input type="text" name="name" id="name" placeholder="Имя">
                 <input type="text" name="surname" id="" placeholder="Фамилия">
                 <input type="email" name="email" id="" placeholder="Почта">
                 <input type="email" name="number" id="" placeholder="Телефон">
