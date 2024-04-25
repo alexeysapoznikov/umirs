@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +13,6 @@
     <title>Umirs - сервис тестирования</title>
 </head>
 <body>
-    <?php if ($hideHeader != true): ?>
         <header>
         <div class="header-top-block">
             <div class="logo-box">
@@ -55,13 +57,25 @@
                     <a href="">О нас</a>
                     <a href="">Тесты</a>
                 </nav>
-                <div class="profile">
-                    <a href="">Профиль <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.83521 2.95825L1.16471 2.95825L4.99996 8.04175L8.83521 2.95825Z" fill="white" fill-opacity="0.5"/>
-                        </svg>
+                <?php
+                if (empty($_SESSION['USER'])) {
+                    ?>
+                    <div class="profile">
+                        <a href="./auth.php">Войти
                         </a>
-                </div>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="profile">
+                        <a href="./lk.php"> Профиль <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.83521 2.95825L1.16471 2.95825L4.99996 8.04175L8.83521 2.95825Z" fill="white" fill-opacity="0.5"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </header>
-    <?php endif;?>

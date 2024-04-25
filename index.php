@@ -103,4 +103,5 @@ include_once './php/header.php';
             </form>
         </div>
     </main>
-<?include_once "./php/footer.php";?>
+
+<?php include_once "./php/footer.php";?>

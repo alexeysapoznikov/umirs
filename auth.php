@@ -1,6 +1,6 @@
 <?php
-$hideHeader = true;
 include_once './php/header.php';
+//$hideHeader = true;
 ?>
 <body>
     <main id="auth-page" class="auth-page-login">
@@ -30,9 +30,9 @@ include_once './php/header.php';
                 <input type="text" name="name" id="name" placeholder="Имя">
                 <input type="text" name="surname" id="" placeholder="Фамилия">
                 <input type="email" name="email" id="" placeholder="Почта">
-                <input type="email" name="number" id="" placeholder="Телефон">
+                <input type="text" name="number" id="" placeholder="Телефон">
                 <input type="password" name="password" id="" placeholder="Пароль">
-                <input type="password" name="password" id="" placeholder="Подтверждение">
+                <input type="password_repeat" name="password_repeat" id="" placeholder="Подтверждение">
                 <input type="hidden" name="auth" value="reg">
                 <button type="submit">Продолжить</button>
                 <p>Нажимая кнопку "Продолжить", я даю согласие на обработку своих персональных данных в соответствии с Условиями</p>

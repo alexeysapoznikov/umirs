@@ -23,11 +23,29 @@ class getFunctions {
     }
 
     public function authUser($user, $connection) {
-        $list = mysqli_query($connection, "SELECT * FROM `users` WHERE `email`='".$user['email']."'");
-        // $list = mysqli_fetch_assoc($list);
+        $list = mysqli_query($connection, "SELECT * FROM `users` WHERE `email`='".$user['email']."' AND `password`='".$user['password']."'");
 
-        print_r($list);
-        
+        if (!$list->num_rows == 1) {
+            echo 'Аккаунт не найден либо введен неправильный пароль';
+        } else {
+            $userinfo = mysqli_query($connection, "SELECT * FROM `users` WHERE `email`='".$user['email']."'");
+            $userinfo = mysqli_fetch_assoc($userinfo);
+
+            session_start();
+            $_SESSION['USER']['ID'] = $userinfo['id'];
+            $_SESSION['USER']['NAME'] = $userinfo['name'];
+            $_SESSION['USER']['SURNAME'] = $userinfo['surname'];
+            $_SESSION['USER']['EMAIL'] = $userinfo['email'];
+            $_SESSION['USER']['NUMBER'] = $userinfo['number'];
+            $_SESSION['USER']['PASSWORD'] = $userinfo['password'];
+            $_SESSION['USER']['PRIMARY'] = $userinfo['primary'];
+            print_r($_SESSION['USER']);
+        }
     }
+
+    public function getTests() {
+
+    }
+
 
 }
