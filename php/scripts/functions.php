@@ -47,5 +47,9 @@ class getFunctions {
 
     }
 
+    public function addTest($connection, $testData) {
+        mysqli_query($connection, "INSERT INTO tests (`id`, `name`, `desc`, `desc_short`, `preview_img_src`, `main_img_src`, `time`, `difficulty`, `questions`) VALUES (NULL,'".$testData['TITLE']."','".$testData['DESC']."','".$testData['DESC_SHORT']."','".$testData['IMG_PREVIEW']."','".$testData['IMG']."','".$testData['TIME']."','".$testData['DIFFICULTY']."','".$testData['QUESTIONS']."')");
 
+    }
+    
 }
