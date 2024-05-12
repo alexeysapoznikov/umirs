@@ -53,9 +53,9 @@ session_start();
         <div class="header-bottom-block__container">
             <div class="header-bottom-block">
                 <nav>
-                    <a href="">Главная</a>
+                    <a href="/">Главная</a>
                     <a href="">О нас</a>
-                    <a href="">Тесты</a>
+                    <a href="/catalog.php">Тесты</a>
                 </nav>
                 <?php
                 if (empty($_SESSION['USER'])) {

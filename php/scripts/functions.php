@@ -43,13 +43,37 @@ class getFunctions {
         }
     }
 
-    public function getTests() {
+    public function getTests($connection) {
+        $tests = mysqli_query($connection, "SELECT * FROM `tests`");
+        $tests = mysqli_fetch_assoc($tests);
 
+        return $tests;
     }
 
     public function addTest($connection, $testData) {
         mysqli_query($connection, "INSERT INTO tests (`id`, `name`, `desc`, `desc_short`, `preview_img_src`, `main_img_src`, `time`, `difficulty`, `questions`) VALUES (NULL,'".$testData['TITLE']."','".$testData['DESC']."','".$testData['DESC_SHORT']."','".$testData['IMG_PREVIEW']."','".$testData['IMG']."','".$testData['TIME']."','".$testData['DIFFICULTY']."','".$testData['QUESTIONS']."')");
+        $thisTestInfo = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM `tests` WHERE `name`='".$testData["TITLE"]."'"));
+        print_r($thisTestInfo);
+        $_SESSION["createdTest"]['INFO'] = $thisTestInfo;
+        return $_SESSION["createdTest"]['INFO'];
 
     }
+
+    public function addQuestion($connection, $questionsData) {
+        mysqli_query($connection, "INSERT INTO questions (`id`, `quiz_id`, `title`, `name`, `desc`, `img`, `responses`) VALUES (NULL,'".$questionsData['TEST_ID']."','".$questionsData['TITLE']."','".$questionsData['NAME']."','".$questionsData['DESC']."','".$questionsData['IMG']."','".$questionsData['RESPONSES']."')");
+    }
+
+    public function getTestById($connection, $testid) {
+        $test = mysqli_query($connection, "SELECT * FROM `tests` WHERE `id`='".$testid."'");
+        $test = mysqli_fetch_assoc($test);
+        return $test;
+    }
+
+    public function getTestQuestions($connection, $testid) {
+        $test = mysqli_query($connection, "SELECT * FROM `questions` WHERE `quiz_id`='".$testid."'");
+        $test = mysqli_fetch_assoc($test);
+        return $test;
+    }
+
     
 }

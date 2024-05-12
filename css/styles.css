@@ -1035,3 +1035,33 @@ footer .icons {
     margin-right: 0px;
 }
 
+.testConstructor-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+}
+
+.testConstructor-container h2 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.constructor-main-info {
+    padding: 9px 13px 31px 9px;
+    background: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.constructor-main-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 18px;
+}
+

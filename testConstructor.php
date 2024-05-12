@@ -1,7 +1,7 @@
 <?php include_once './php/header.php' ?>
 
 
-<main id="testConstructor">
+<main id="testConstructor" class="testConstructor-container">
 	<h2>Создание теста</h2>
 		<div class="constructor-main-container">
 			<form class="constructor-main-info" id="testInfo">
@@ -86,12 +86,13 @@
                 console.log('Произошла ошибка при отправке данных: ' + error);
             }
         });
+        
 
         $('.question').each(function(e) {
             var formData = new FormData(this); // Создаем объект FormData для отправки данных формы, включая загруженные файлы
 
             $.ajax({
-                url: './php/scripts/addNewQuiz.php', // Замените на путь к вашему файлу PHP
+                url: './php/scripts/addNewQuestion.php', // Замените на путь к вашему файлу PHP
                 type: 'POST',
                 data: formData,
                 processData: false, // Обязательно установите это значение в false
