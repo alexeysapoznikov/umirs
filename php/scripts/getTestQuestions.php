@@ -4,12 +4,14 @@ include 'functions.php';
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 $application = new Functions\getFunctions;
-$dbconn = $application->connectDatabase(true);
+$dbconn = $application->connectDatabase(false);
 
-$testQuestions = $application->getTestQuestions($dbconn, $_GET['id']);
+$test = mysqli_query($dbconn, "SELECT * FROM `questions` WHERE `quiz_id`='".$_GET['id']."' ORDER BY `questions`.`id` DESC");
 
-print_r($testQuestions);
-$testQuestions = json_decode($testQuestions['responses']);
-print_r($testQuestions);
+$test = mysqli_fetch_all($test);
+$test = json_encode($test);
+print_r($test);
 
+
+return $test;
 ?>

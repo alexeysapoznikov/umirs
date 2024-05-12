@@ -71,7 +71,7 @@ class getFunctions {
 
     public function getTestQuestions($connection, $testid) {
         $test = mysqli_query($connection, "SELECT * FROM `questions` WHERE `quiz_id`='".$testid."'");
-        $test = mysqli_fetch_assoc($test);
+
         return $test;
     }
 
