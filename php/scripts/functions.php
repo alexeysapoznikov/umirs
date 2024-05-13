@@ -1,6 +1,7 @@
 <?php
 
 namespace Functions;
+session_start();
 
 
 class getFunctions {

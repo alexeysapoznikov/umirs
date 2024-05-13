@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once './php/header.php';
 include './php/scripts/functions.php';
 $application = new Functions\getFunctions;
@@ -91,7 +91,7 @@ $dbconn = $application->connectDatabase(false);
                         <div class="step-top-info">
                             <p><span id="count">`+counter+`/` + data.length + `</span> `+this[2]+`</p> <a href="" id="exit">Выйти</a>
                         </div>
-                        <img src="./assets/images/header.png" class="step-image" alt="">
+                        <img src="./assets/images/`+this[5]+`" class="step-image" alt="">
                         <div class="step-qiestion">
                             <div class="step-qiestion-text">
                                 <h3>Описание вопроса:</h3>
@@ -102,19 +102,19 @@ $dbconn = $application->connectDatabase(false);
                                 <input type="hidden" name="questionid" value="`+this[0]+`">
                                 <input type="hidden" name="testId" value="<?= $_GET['id']?>">
                                 <div>
-                                    <input type="checkbox" name="`+this[0]+`question1" id="`+this[0]+`question1" value="`+questions[2]+`">
+                                    <input type="checkbox" name="`+this[0]+`" id="`+this[0]+`question1" value="`+questions[0]+`">
                                     <label for="`+this[0]+`question1">`+questions[0]+`</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" name="`+this[0]+`question2" id="`+this[0]+`question2" value="`+questions[2]+`">
+                                    <input type="checkbox" name="`+this[0]+`" id="`+this[0]+`question2" value="`+questions[1]+`">
                                     <label for="`+this[0]+`question2">`+questions[1]+`</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" name="`+this[0]+`question3" id="`+this[0]+`question3" value="`+questions[2]+`">
+                                    <input type="checkbox" name="`+this[0]+`" id="`+this[0]+`question3" value="`+questions[2]+`">
                                     <label for="`+this[0]+`question3">`+questions[2]+`</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" name="`+this[0]+`question4" id="`+this[0]+`question4" value="`+questions[2]+`">
+                                    <input type="checkbox" name="`+this[0]+`" id="`+this[0]+`question4" value="`+questions[3]+`">
                                     <label for="`+this[0]+`question4">`+questions[3]+`</label>
                                 </div>
                                 `+last+`
@@ -130,25 +130,44 @@ $dbconn = $application->connectDatabase(false);
             });
             $(document).on('click', '.endTest', function(e) {
                 e.preventDefault();
-                $('form').each(function(e) {
-                var formData = new FormData(this); // Создаем объект FormData для отправки данных формы, включая загруженные файлы
+                let data = [];
+                let questionsObject = {};
 
+                
+                $('form').each(function(e) {
+                    
+                    let counterForms = 0;
+                        $('form').find('input[type="checkbox"]:checked').each(function(e) {
+                            counterForms++;
+                        });
+                    if (counterForms < $('form').length) {
+                        alert('Выберите все варианты ответа');
+                        return false;
+                    } else {
+                        let thisCheckbox = $(this).find('input[type="checkbox"]:checked');
+                        data.push($(thisCheckbox).attr('name'));
+                        data.push($(thisCheckbox).attr('value'));
+                        console.log(data);
+                    };
+                });
+
+                for (let i = 0; i < data.length; i += 2) {
+                    let key = data[i];
+                    let value = data[i + 1];
+                    questionsObject[key] = { ['QUESTION_RESPONSE']: value , ['QUESTION_ID']: key };
+                };
+
+                console.log(questionsObject);
+                
                 $.ajax({
-                    url: './php/scripts/addUserResponses.php', // Замените на путь к вашему файлу PHP
-                    type: 'POST',
-                    data: formData,
-                    processData: false, // Обязательно установите это значение в false
-                    contentType: false, // Обязательно установите это значение в false
+                    url: './php/scripts/addUserResponses.php',
+                    method: 'POST',
+                    data: {myData: JSON.stringify(questionsObject)},
                     success: function(response) {
-                        // Обработка успешного ответа от сервера
-                        console.log('Данные успешно отправлены: ' + response);
-                    },
-                    error: function(xhr, status, error) {
-                        // Обработка ошибок
-                        console.log('Произошла ошибка при отправке данных: ' + error);
+                        console.log(response);
                     }
                 });
-            });
+
             });
         });
         $(document).on('click', '.nextQuestion', function(e) {
