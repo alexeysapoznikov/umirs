@@ -20,11 +20,15 @@ if ($type = $_POST["auth"] == 'reg') {
         header('Location: /auth.php');
     };
 
+    header('Location: ../../profile.php');
+
 } else {
 
     $type = $_POST["email"];
     $type = $_POST["password"];
 
     $application->authUser($_POST, $dbconn);
+
+    header('Location: ../../profile.php');
 
 };

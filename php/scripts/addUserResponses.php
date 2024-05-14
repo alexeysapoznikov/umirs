@@ -1,10 +1,12 @@
 <?php
 include 'functions.php';
-
+session_start();
 $application = new Functions\getFunctions;
 $dbconn = $application->connectDatabase(false);
 $data = json_decode($_POST['myData'], true);
-// print_r($data);
+$testId = json_decode($_POST['testid'], true);
+$time = json_decode($_POST['time'], true);
+
 
 $successQuestions = 0;
 foreach ($data as $dataItem) {
@@ -27,6 +29,12 @@ if ($testPrecents >= 70) {
 } else {
   print_r('Тест не сдан');
 };
+
+if ($successQuestions == 0) {
+  echo 'Ошибка';
+} else {
+  mysqli_query($dbconn, "INSERT INTO successTest (`id`, `quiz_id`, `user_id`, `time`, `successQuestionsCount`, `falseQuestionsCount`, `questionsCount`) VALUES (NULL,'".$testId."','".$_SESSION['USER']['ID']."','".$time."','".$successQuestions."', '".$testPrecents."', '".count($data)."')");
+}
 
 
 ?>

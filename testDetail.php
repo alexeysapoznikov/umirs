@@ -4,7 +4,6 @@ include_once './php/header.php';
 include './php/scripts/functions.php';
 $application = new Functions\getFunctions;
 $dbconn = $application->connectDatabase(false);
-
 $testInfo = $application->getTestById($dbconn, $_GET['id']);
 //print_r($testInfo);
 $questions = mysqli_query($dbconn, "SELECT * FROM `questions` WHERE `quiz_id` = '".$testInfo['id']."'");

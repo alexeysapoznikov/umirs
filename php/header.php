@@ -68,7 +68,7 @@ session_start();
                 } else {
                     ?>
                     <div class="profile">
-                        <a href="./lk.php"> Профиль <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <a href="./profile.php"> Профиль <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8.83521 2.95825L1.16471 2.95825L4.99996 8.04175L8.83521 2.95825Z" fill="white" fill-opacity="0.5"/>
                             </svg>
                         </a>

@@ -1,9 +1,13 @@
 <?php
 session_start();
+if (empty($_SESSION['USER'])) {
+    header('Location: ./auth.php');
+};
 include_once './php/header.php';
 include './php/scripts/functions.php';
 $application = new Functions\getFunctions;
 $dbconn = $application->connectDatabase(false);
+$time_pre = microtime(true);
 ?>
 
 <style>
@@ -130,6 +134,7 @@ $dbconn = $application->connectDatabase(false);
             });
             $(document).on('click', '.endTest', function(e) {
                 e.preventDefault();
+                let time = 0;
                 let data = [];
                 let questionsObject = {};
 
@@ -158,11 +163,10 @@ $dbconn = $application->connectDatabase(false);
                 };
 
                 console.log(questionsObject);
-                
                 $.ajax({
                     url: './php/scripts/addUserResponses.php',
                     method: 'POST',
-                    data: {myData: JSON.stringify(questionsObject)},
+                    data: {myData: JSON.stringify(questionsObject), testid: <?= $_GET['id']; ?>, time: time},
                     success: function(response) {
                         console.log(response);
                     }

@@ -53,7 +53,7 @@ $dbconn = $application->connectDatabase(false);
                     <img src="./assets/images/<?=$test['preview_img_src'] ?>" alt="">
                     <h3><?= $test['name'] ?></h3>
                     <p><?= $test['desc'] ?></p>
-                    <a href="">Начать тест <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <a href="/testDetail.php?id=<?=$test['id']?>">Подробнее <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.62068 1.74713L5.62068 13.2529L15.2793 7.50001L5.62068 1.74713Z" fill="white"/>
                         </svg>
                         </a>
