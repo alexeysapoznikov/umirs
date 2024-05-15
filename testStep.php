@@ -7,7 +7,6 @@ include_once './php/header.php';
 include './php/scripts/functions.php';
 $application = new Functions\getFunctions;
 $dbconn = $application->connectDatabase(false);
-$time_pre = microtime(true);
 ?>
 
 <style>
@@ -19,7 +18,30 @@ $time_pre = microtime(true);
         display: none;
     }
 </style>
+<script>
+    let startTime;
 
+function startTimer() {
+    startTime = new Date();
+}
+
+function calculateTimeSpent() {
+    const endTime = new Date();
+    const timeSpent = endTime - startTime; // разница в миллисекундах
+
+    // Преобразуем время в часы, минуты и секунды
+    const seconds = Math.floor((timeSpent / 1000) % 60);
+    const minutes = Math.floor((timeSpent / (1000 * 60)) % 60);
+    const hours = Math.floor((timeSpent / (1000 * 60 * 60)) % 24);
+
+    console.log(`${hours}:${minutes}:${seconds}`);
+
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+startTimer();
+
+</script>
 <main id="testStep">
         <!-- <div class="teststep-block">
             <div class="step-top-info">
@@ -134,7 +156,6 @@ $time_pre = microtime(true);
             });
             $(document).on('click', '.endTest', function(e) {
                 e.preventDefault();
-                let time = 0;
                 let data = [];
                 let questionsObject = {};
 
@@ -161,14 +182,18 @@ $time_pre = microtime(true);
                     let value = data[i + 1];
                     questionsObject[key] = { ['QUESTION_RESPONSE']: value , ['QUESTION_ID']: key };
                 };
-
-                console.log(questionsObject);
+                let timeNeed = calculateTimeSpent();
                 $.ajax({
                     url: './php/scripts/addUserResponses.php',
                     method: 'POST',
-                    data: {myData: JSON.stringify(questionsObject), testid: <?= $_GET['id']; ?>, time: time},
+                    data: {myData: JSON.stringify(questionsObject), testid: <?= $_GET['id'] ?>, timeNeed: JSON.stringify(timeNeed)},
                     success: function(response) {
-                        console.log(response);
+                        response = JSON.parse(response);
+                        if (response['result'] == true) {
+                            window.location.href = `./result.php?result=2&id=${response['resultId']}`
+                        } else if (response['result'] == false) {
+                            window.location.href = `./result.php?result=1&id=${response['resultId']}`
+                        }
                     }
                 });
 

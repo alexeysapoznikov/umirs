@@ -8,6 +8,9 @@ include './php/scripts/functions.php';
 $application = new Functions\getFunctions;
 $dbconn = $application->connectDatabase(false);
 
+$successTests = mysqli_query($dbconn, "SELECT * FROM `successTest` WHERE `user_id`='".$_SESSION['USER']['ID']."'");
+// $successTests = mysqli_fetch_assoc($successTests);
+
 ?>
     <main id="profile">
         <div class="profile-title">
@@ -40,34 +43,21 @@ $dbconn = $application->connectDatabase(false);
             <div class="profile-success-list-block">
                 <h3>Пройденные тесты</h3>
                 <div class="profile-success-list">
+                    <?php
+                    foreach ($successTests as $test):
+                    
+                    $question = mysqli_query($dbconn, "SELECT * FROM `tests` WHERE `id`=".$test['quiz_id']);
+                    $question = mysqli_fetch_assoc($question);
+                    ?>
                     <div class="profile-success-item">
-                        <h3>Название</h3>
-                        <p>Описание: <span>Описание2</span></p>
-                        <p>Описание: <span>Описание2</span></p>
-                        <p>Описание: <span>Описание2</span></p>
-                        <span id="result">Результат: 77%</span>
+                        <h3><?= $question['name']?></h3>
+                        <p>Времени затрачено: <span><?= $test['time'] ?></span></p>
+                        <p>Всего вопросов: <span><?= $test['questionsCount'] ?></span></p>
+                        <p>Верных ответов: <span><?= $test['successQuestionsCount'] ?></span></p>
+                        <p>Неверных ответов: <span><?= ($test['questionsCount'] - $test['successQuestionsCount']) ?></span></p>
+                        <span id="result">Результат: <?= (($test['successQuestionsCount'] / $test['questionsCount']) * 100) ?>%</span>
                     </div>
-                    <div class="profile-success-item">
-                        <h3>Название</h3>
-                        <p>Описание: <span>Описание2</span></p>
-                        <p>Описание: <span>Описание2</span></p>
-                        <p>Описание: <span>Описание2</span></p>
-                        <span id="result">Результат: 77%</span>
-                    </div>
-                    <div class="profile-success-item">
-                        <h3>Название</h3>
-                        <p>Описание: <span>Описание2</span></p>
-                        <p>Описание: <span>Описание2</span></p>
-                        <p>Описание: <span>Описание2</span></p>
-                        <span id="result">Результат: 77%</span>
-                    </div>
-                    <div class="profile-success-item">
-                        <h3>Название</h3>
-                        <p>Описание: <span>Описание2</span></p>
-                        <p>Описание: <span>Описание2</span></p>
-                        <p>Описание: <span>Описание2</span></p>
-                        <span id="result">Результат: 77%</span>
-                    </div>
+                    <? endforeach; ?>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ $application = new Functions\getFunctions;
 $dbconn = $application->connectDatabase(false);
 $data = json_decode($_POST['myData'], true);
 $testId = json_decode($_POST['testid'], true);
-$time = json_decode($_POST['time'], true);
+$time = json_decode($_POST['timeNeed'], true);
 
 
 $successQuestions = 0;
@@ -18,23 +18,29 @@ foreach ($data as $dataItem) {
 
     if ($originalItemResponses[0] == $dataItem['QUESTION_RESPONSE']) {
         $successQuestions++;
-        print_r(' Ответ на вопрос ' . $originalItem['title'] . ' = ' . $dataItem['QUESTION_RESPONSE']);
+        // print_r(' Ответ на вопрос ' . $originalItem['title'] . ' = ' . $dataItem['QUESTION_RESPONSE']);
     };
 };
 $testPrecents = ($successQuestions / count($data)) * 100;
-print_r('Правильно отвечено на '.$successQuestions.' из '.count($data).'. В процентах: '.$testPrecents.'%');
-
+// print_r('Правильно отвечено на '.$successQuestions.' из '.count($data).'. В процентах: '.$testPrecents.'%');
+$testNoResponse = (count($data) - $successQuestions);
 if ($testPrecents >= 70) {
-  print_r('Тест сдан');
+  mysqli_query($dbconn, "INSERT INTO successTest (`id`, `quiz_id`, `user_id`, `time`, `successQuestionsCount`, `falseQuestionsCount`, `questionsCount`) VALUES (NULL,'".$testId."','".$_SESSION['USER']['ID']."','".$time."','".$successQuestions."', '".$testNoResponse."', '".count($data)."')");
+  $thisResult = mysqli_query($dbconn, "SELECT * FROM `successTest` WHERE `quiz_id` = '".$testId."' AND `user_id` = '".$_SESSION['USER']['ID']."'");
+  $thisResult = mysqli_fetch_assoc($thisResult);
+  $response = [
+    'message' => 'Тест пройден',
+    'result' => true,
+    'resultId' => $thisResult['id']
+  ];
+  echo json_encode($response);
 } else {
-  print_r('Тест не сдан');
+  $response = [
+    'message' => 'Тест провален',
+    'result' => false,
+  ];
+  echo json_encode($response);
 };
-
-if ($successQuestions == 0) {
-  echo 'Ошибка';
-} else {
-  mysqli_query($dbconn, "INSERT INTO successTest (`id`, `quiz_id`, `user_id`, `time`, `successQuestionsCount`, `falseQuestionsCount`, `questionsCount`) VALUES (NULL,'".$testId."','".$_SESSION['USER']['ID']."','".$time."','".$successQuestions."', '".$testPrecents."', '".count($data)."')");
-}
 
 
 ?>

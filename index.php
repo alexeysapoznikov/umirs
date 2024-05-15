@@ -42,21 +42,46 @@ $dbconn = $application->connectDatabase(false);
                 $tests = mysqli_query($dbconn, "SELECT * FROM tests LIMIT 4");
                 foreach ($tests as $test) {
                     $questions = mysqli_query($dbconn, "SELECT * FROM `questions` WHERE `quiz_id` = '".$test['id']."'");
-//                    print_r($questions);
-
+                    if (isset($_SESSION['USER'])) {
+                        $successTest = mysqli_query($dbconn, "SELECT * FROM `successTest` WHERE `quiz_id` = '".$test['id']."' AND `user_id` = '".$_SESSION['USER']['ID']."'");
+                        if ($successTest->num_rows >= 1) {
+                            $testPassed = true;
+                        } else {
+                            $testPassed = false;
+                        }
+                    } else {
+                        $testPassed = false;
+                    }
                 ?>
                 <div class="catalog-item">
                     <div class="info-plash">
-                        <span id="type1">НЕ ПРОЙДЕН</span>
-                        <span id="type2"><?= $questions->num_rows; ?> ВОПРОСОВ</span>
+                        <?php
+                        
+                        if ($testPassed == true) {
+                            ?><span id="type1" style="background-color: green;">ПРОЙДЕН</span><?php
+                        } else {
+                            ?><span id="type1">НЕ ПРОЙДЕН</span><?php
+                        };
+
+                        ?>
+                        <span id="type2">ВОПРОСЫ: <?= $questions->num_rows; ?></span>
                     </div>
                     <img src="./assets/images/<?=$test['preview_img_src'] ?>" alt="">
                     <h3><?= $test['name'] ?></h3>
                     <p><?= $test['desc'] ?></p>
-                    <a href="/testDetail.php?id=<?=$test['id']?>">Подробнее <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5.62068 1.74713L5.62068 13.2529L15.2793 7.50001L5.62068 1.74713Z" fill="white"/>
-                        </svg>
-                        </a>
+                        <?php
+                        
+                        if ($testPassed == true) {
+                            ?><a href="/profile.php" style="justify-content: center;">ТЕСТ ПРОЙДЕН
+                            </a><?php
+                        } else {
+                            ?><a href="/testDetail.php?id=<?=$test['id']?>">ПОДРОБНЕЕ <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.62068 1.74713L5.62068 13.2529L15.2793 7.50001L5.62068 1.74713Z" fill="white"/>
+                            </svg>
+                            </a><?php
+                        };
+
+                        ?>
                 </div><?php
                 };?>
             </div>
