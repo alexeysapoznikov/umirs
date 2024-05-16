@@ -9,7 +9,7 @@ $dbconn = $application->connectDatabase(false);
         <div class="top-banner">
             <div class="banner-content">
                 <p>Бесплатный многофункциональный сервис для проведения тестирования и обучения</p>
-                <a href="">Подробнее</a>
+                <a href="./catalog.php">Подробнее</a>
             </div>
         </div>
         <div class="about-block">
@@ -22,7 +22,7 @@ $dbconn = $application->connectDatabase(false);
                     разработанные АО «ЮМИРС», успешно решают задачу
                     комплексной охраны периметров и обеспечения
                     безопасности объектов.</p>
-                <a href="">Подробнее</a>
+                <a href="./catalog.php">Подробнее</a>
             </div>
             <div class="about-img-block">
 
@@ -89,16 +89,45 @@ $dbconn = $application->connectDatabase(false);
         <div class="feedback-form">
             <h2>Остались вопросы? Напишите нам!</h2>
             <p>Мы ответим Вам в течение 1 рабочего дня.</p>
-            <form action="">
+            <form action="" id="feedback">
                 <div>
-                    <input type="text" placeholder="Имя">
-                    <input type="text" placeholder="Email">
-                    <input type="text" placeholder="Телефон">
+                    <input type="text" placeholder="Имя" id="name" name="name">
+                    <input type="text" placeholder="Email" id="email" name="email">
+                    <input type="text" placeholder="Телефон" id="number" name="number">
                 </div>
-                <input type="text" placeholder="Напишите ваш вопрос" class="desc">
+                <input type="text" placeholder="Напишите ваш вопрос" class="desc" id="comment" name="comment">
                 <button>Отправить</button>
             </form>
         </div>
     </main>
+    <script>
+            $('#feedback').submit(function(event) {
+                event.preventDefault();
+                
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var phone = $('#number').val();
+                var question = $('#comment').val();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: './php/scripts/feedbackNew.php',
+                    data: {
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        question: question
+                    },
+                    success: function(response) {
+                        // Handle success response here
+                        alert('Сообщение успешно отправлено')
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response here
+                        console.error('AJAX request error:', error);
+                    }
+                });
+            });
+    </script>
 
 <?php include_once "./php/footer.php";?>

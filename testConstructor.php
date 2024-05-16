@@ -8,13 +8,15 @@
 				<h3>Основная информация</h3>
 				<input type="text" name="title" placeholder="Название теста">
 				<div class="container-two-inputs">
-					<input type="text" name="desc" placeholder="Описание теста">
-					<input type="text" name="desc_short" placeholder="Описание теста (кратко)">
+					<input type="text" class="test-desc" name="desc" placeholder="Описание теста">
+					<input type="text" class="test-desc" name="desc_short" placeholder="Описание теста (кратко)">
 				</div>
 				<input type="text" name="time" placeholder="Время прохождения">
 				<input type="text" name="difficulty" placeholder="Сложность">
 				<div class="container-two-inputs">
+                    <p>Фото: </p>
 					<input type="file" name="img_main" placeholder="Фото">
+                    <p>Превью: </p>
 					<input type="file" name="img_preview" placeholder="Превью">
 				</div>
 			</form>
@@ -26,21 +28,24 @@
                             <div class="question-left">
                                 <input type="text" name="title" placeholder="Название теста">
                                 <input type="text" name="desc" placeholder="Описание теста">
+                                Фото:
                                 <input type="file" name="img" placeholder="Фото">
                             </div>
                             <div class="question-right">
                                 <input type="text" name="response_1" placeholder="Вариант ответа 1">
+                                <p>Данный вариант ответа является правильным</p>
                                 <input type="text" name="response_2" placeholder="Вариант ответа 2">
                                 <input type="text" name="response_3" placeholder="Вариант ответа 3">
                                 <input type="text" name="response_4" placeholder="Вариант ответа 4">
-                                <a href="">Добавить ещё</a>
                             </div>
                         </form>
                     </div>
 				</div>
 			</div>
-			<a href="" class="newQuestion">Новый вопрос</a>
+			<div class="test-buttons">
+            <a href="" class="newQuestion">Новый вопрос</a>
 			<a href="" class="createTest">Сохранить и создать тест</a>
+            </div>
 		</div>
 </main>
 <script type="text/javascript">
@@ -52,14 +57,15 @@
                 <div class="question-left">
                     <input type="text" name="title" placeholder="Название вопроса">
                     <input type="text" name="desc" placeholder="Описание">
+                    Фото:
                     <input type="file" name="img" placeholder="Фото">
                 </div>
                 <div class="question-right">
                     <input type="text" name="response_1" placeholder="Вариант ответа 1">
+                    <p>Данный вариант ответа является правильным</p>
                     <input type="text" name="response_2" placeholder="Вариант ответа 2">
                     <input type="text" name="response_3" placeholder="Вариант ответа 3">
                     <input type="text" name="response_4" placeholder="Вариант ответа 4">
-                    <a href="">Добавить ещё</a>
                 </div>
             </form>
         </div>`);

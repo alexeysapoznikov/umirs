@@ -115,7 +115,7 @@ startTimer();
                         }
                         $('#testStep').append(`<div class="teststep-block" id="`+counter+`" `+ hidden +`>
                         <div class="step-top-info">
-                            <p><span id="count">`+counter+`/` + data.length + `</span> `+this[2]+`</p> <a href="" id="exit">Выйти</a>
+                            <p><span id="count">`+counter+`/` + data.length + `</span> `+this[2]+`</p> <a href="./index.php" id="exit">Выйти</a>
                         </div>
                         <img src="./assets/images/`+this[5]+`" class="step-image" alt="">
                         <div class="step-qiestion">
@@ -217,6 +217,8 @@ startTimer();
             thisId--;
             $('.teststep-block#' + thisId).css('display', 'flex');
         });
+        
+
         
     </script>
 <?php include_once "./php/footer.php";?>
